@@ -1,0 +1,59 @@
+---
+title: "vivaChallenge"
+output: html_document
+date: "2023-05-07"
+---
+
+```{r setup, include=FALSE}
+library("readxl")
+library(openair)
+library(dplyr)
+```
+
+
+```{r}
+Translated_Data
+
+Translated_Data$Date <- as.POSIXct(Translated_Data$Date, format="%Y-%m-%d %H:%M:%S")
+colnames(Translated_Data)[colnames(Translated_Data) == "Date"] ="date"
+Translated_Data$NPS <- as.numeric(Translated_Data$NPS)
+```
+```{r}
+booking_flow <- filter(Translated_Data, Channel == 'Booking flow')
+checkin <- filter(Translated_Data, Channel == 'Checkin')
+manage_booking <- filter(Translated_Data, Channel == 'Manage my booking')
+feedback <- filter(Translated_Data, Channel == 'Feedback button')
+```
+
+
+```{r}
+calendarPlot(booking_flow, pollutant = 'NPS' )
+```
+```{r}
+timeVariation(booking_flow, pollutant = 'NPS' )
+```
+
+```{r}
+calendarPlot(checkin, pollutant = 'NPS' )
+```
+
+```{r}
+timeVariation(checkin, pollutant = 'NPS' )
+```
+
+
+```{r}
+calendarPlot(feedback, pollutant = 'NPS' )
+```
+
+```{r}
+timeVariation(feedback, pollutant = 'NPS' )
+```
+
+```{r}
+calendarPlot(manage_booking, pollutant = 'NPS' )
+```
+
+```{r}
+timeVariation(manage_booking, pollutant = 'NPS' )
+```
